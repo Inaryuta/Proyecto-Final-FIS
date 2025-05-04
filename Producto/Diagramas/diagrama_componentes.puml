@@ -1,0 +1,19 @@
+@startuml component
+package "Frontend" {
+    [Catálogo de camisetas]
+    [Gestión de artistas]
+    [Proceso de compra]
+}
+
+package "Backend" {
+    [Controlador Catálogo]
+    [Controlador Artistas]
+    [Gestor Pedidos]
+    [Gestor Usuarios]
+}
+
+[Catálogo de camisetas] --> [Controlador Catálogo]
+[Gestión de artistas] --> [Controlador Artistas]
+[Proceso de compra] --> [Gestor Pedidos]
+[Controlador Catálogo] --> [Gestor Usuarios]
+@enduml

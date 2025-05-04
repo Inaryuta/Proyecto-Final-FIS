@@ -1,0 +1,71 @@
+Table usuarios {
+  id integer [primary key]
+  nombre varchar
+  correo varchar [unique]
+  contrasena varchar
+  rol_id integer
+  fecha_creacion timestamp
+}
+
+Table roles {
+  id integer [primary key]
+  nombre varchar
+}
+
+Table artistas {
+  id integer [primary key]
+  usuario_id integer [unique]
+  biografia text
+}
+
+Table estampas {
+  id integer [primary key]
+  titulo varchar
+  descripcion text
+  artista_id integer
+  fecha_subida timestamp
+}
+
+Table camisetas {
+  id integer [primary key]
+  talla varchar
+  color varchar
+  material varchar
+  estampa_id integer
+  precio decimal
+  stock integer
+}
+
+Table pedidos {
+  id integer [primary key]
+  usuario_id integer
+  fecha timestamp
+  total decimal
+  metodo_pago_id integer
+  estado varchar
+}
+
+Table detalles_pedido {
+  id integer [primary key]
+  pedido_id integer
+  camiseta_id integer
+  cantidad integer
+  subtotal decimal
+}
+
+Table metodos_pago {
+  id integer [primary key]
+  tipo varchar
+  descripcion text
+}
+
+// Relaciones
+
+Ref: usuarios.rol_id > roles.id
+Ref: artistas.usuario_id > usuarios.id
+Ref: estampas.artista_id > artistas.id
+Ref: camisetas.estampa_id > estampas.id
+Ref: pedidos.usuario_id > usuarios.id
+Ref: pedidos.metodo_pago_id > metodos_pago.id
+Ref: detalles_pedido.pedido_id > pedidos.id
+Ref: detalles_pedido.camiseta_id > camisetas.id

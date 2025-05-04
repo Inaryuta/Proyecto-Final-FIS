@@ -1,0 +1,21 @@
+@startuml deployment
+node "Cliente Web" {
+    artifact "Navegador"
+}
+
+node "Servidor Web" {
+    artifact "Frontend (React/Vue)"
+}
+
+node "Servidor de Aplicación" {
+    artifact "Backend (Node/Java/Python)"
+}
+
+node "Base de Datos" {
+    database "BD MySQL/PostgreSQL"
+}
+
+"Cliente Web" --> "Servidor Web"
+"Servidor Web" --> "Servidor de Aplicación"
+"Servidor de Aplicación" --> "Base de Datos"
+@enduml

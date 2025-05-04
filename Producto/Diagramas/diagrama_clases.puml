@@ -1,0 +1,47 @@
+@startuml class diagram
+class Usuario {
+    - id: int
+    - nombre: string
+    - correo: string
+    - contraseña: string
+}
+
+class Cliente extends Usuario {
+    + verCatalogo()
+    + realizarCompra()
+}
+
+class Artista extends Usuario {
+    + subirEstampa()
+    + verVentas()
+}
+
+class Estampa {
+    - id: int
+    - titulo: string
+    - descripcion: string
+    - imagenes: List<Imagen>
+    + esPopular(): bool
+}
+
+class Camiseta {
+    - id: int
+    - talla: string
+    - color: string
+    - material: string
+}
+
+class Pedido {
+    - id: int
+    - fecha: Date
+    - total: float
+    + calcularTotal()
+}
+
+Usuario <|-- Cliente
+Usuario <|-- Artista
+Artista "1" -- "0..*" Estampa
+Cliente "1" -- "0..*" Pedido
+Pedido "1" -- "1..*" Camiseta
+Camiseta "1" -- "1" Estampa
+@enduml
