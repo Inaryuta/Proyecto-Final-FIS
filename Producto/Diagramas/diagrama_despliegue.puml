@@ -4,7 +4,7 @@ node "Cliente Web" {
 }
 
 node "Servidor Web" {
-    artifact "Frontend (React/Vue)"
+    artifact "Frontend (Angular)"
 }
 
 node "Servidor de Aplicación" {
