@@ -38,8 +38,19 @@ class Pedido {
     + calcularTotal()
 }
 
+class CarritoDeCompras {
+    - id: int
+    - fechaCreacion: Date
+    + agregarCamiseta(c: Camiseta)
+    + eliminarCamiseta(c: Camiseta)
+    + vaciar()
+    + calcularTotal(): float
+}
+
 Artista "1" -- "0..*" Estampa
 Cliente "1" -- "0..*" Pedido
+Cliente "1" -- "1" CarritoDeCompras
+CarritoDeCompras "1" -- "0..*" Camiseta
 Pedido "1" -- "1..*" Camiseta
 Camiseta "1" -- "1" Estampa
 @enduml
