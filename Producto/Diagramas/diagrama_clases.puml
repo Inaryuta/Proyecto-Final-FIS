@@ -38,8 +38,6 @@ class Pedido {
     + calcularTotal()
 }
 
-Usuario <|-- Cliente
-Usuario <|-- Artista
 Artista "1" -- "0..*" Estampa
 Cliente "1" -- "0..*" Pedido
 Pedido "1" -- "1..*" Camiseta

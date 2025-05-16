@@ -1,0 +1,17 @@
+@startuml
+[*] --> Vacio
+
+Vacio --> PersonalizandoCamiseta : seleccionarCamiseta()
+PersonalizandoCamiseta --> PersonalizandoCamiseta : elegirEstampa()
+PersonalizandoCamiseta --> ConProductos : agregarAlCarrito()
+
+ConProductos --> Vacio : eliminarCamiseta() [si queda vacío]
+ConProductos --> ListoParaComprar : procederAlPago()
+ListoParaComprar --> PedidoRealizado : confirmarCompra()
+ListoParaComprar --> Cancelado : cancelarCompra()
+ConProductos --> Cancelado : cancelarCompra()
+ConProductos --> Vacio : vaciar()
+
+PedidoRealizado --> [*]
+Cancelado --> [*]
+@enduml
