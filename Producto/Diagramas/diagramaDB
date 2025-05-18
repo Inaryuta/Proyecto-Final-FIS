@@ -24,6 +24,7 @@ Table estampas {
   descripcion text
   artista_id integer
   fecha_subida timestamp
+  estado varchar
 }
 
 Table camisetas {
@@ -31,9 +32,27 @@ Table camisetas {
   talla varchar
   color varchar
   material varchar
-  estampa_id integer
   precio decimal
   stock integer
+}
+
+Table camisetas_personalizadas {
+  id integer [primary key]
+  camiseta_id integer
+  estampa_id integer
+}
+
+Table carrito {
+  id integer [primary key]
+  usuario_id integer [unique]
+  fecha_creacion timestamp
+}
+
+Table items_carrito {
+  id integer [primary key]
+  carrito_id integer
+  camiseta_personalizada_id integer
+  cantidad integer
 }
 
 Table pedidos {
@@ -48,7 +67,7 @@ Table pedidos {
 Table detalles_pedido {
   id integer [primary key]
   pedido_id integer
-  camiseta_id integer
+  camiseta_personalizada_id integer
   cantidad integer
   subtotal decimal
 }
@@ -59,13 +78,15 @@ Table metodos_pago {
   descripcion text
 }
 
-// Relaciones
-
 Ref: usuarios.rol_id > roles.id
 Ref: artistas.usuario_id > usuarios.id
 Ref: estampas.artista_id > artistas.id
-Ref: camisetas.estampa_id > estampas.id
+Ref: camisetas_personalizadas.camiseta_id > camisetas.id
+Ref: camisetas_personalizadas.estampa_id > estampas.id
+Ref: carrito.usuario_id > usuarios.id
+Ref: items_carrito.carrito_id > carrito.id
+Ref: items_carrito.camiseta_personalizada_id > camisetas_personalizadas.id
 Ref: pedidos.usuario_id > usuarios.id
 Ref: pedidos.metodo_pago_id > metodos_pago.id
 Ref: detalles_pedido.pedido_id > pedidos.id
-Ref: detalles_pedido.camiseta_id > camisetas.id
+Ref: detalles_pedido.camiseta_personalizada_id > camisetas_personalizadas.id

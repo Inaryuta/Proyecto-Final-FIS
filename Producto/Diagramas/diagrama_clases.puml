@@ -1,4 +1,7 @@
-@startuml class diagram
+@startuml DiagramaClasesTiendaCamisetas
+
+'------------------ Clases de Usuario ------------------
+
 class Usuario {
     - id: int
     - nombre: string
@@ -16,10 +19,19 @@ class Artista extends Usuario {
     + verVentas()
 }
 
+class Administrador extends Usuario {
+    + aprobarEstampa()
+    + consultarRatings()
+    + actualizarTarifas()
+}
+
+'------------------ Estampas y Productos ------------------
+
 class Estampa {
     - id: int
     - titulo: string
     - descripcion: string
+    - estado: string  'pendiente, aprobado, rechazado
     - imagenes: List<Imagen>
     + esPopular(): bool
 }
@@ -31,6 +43,14 @@ class Camiseta {
     - material: string
 }
 
+class CamisetaPersonalizada {
+    - id: int
+    - camiseta: Camiseta
+    - estampa: Estampa
+}
+
+'------------------ Pedido y Carrito ------------------
+
 class Pedido {
     - id: int
     - fecha: Date
@@ -41,16 +61,31 @@ class Pedido {
 class CarritoDeCompras {
     - id: int
     - fechaCreacion: Date
-    + agregarCamiseta(c: Camiseta)
-    + eliminarCamiseta(c: Camiseta)
+    + agregarItem()
+    + eliminarItem()
     + vaciar()
     + calcularTotal(): float
 }
 
+class ItemCarrito {
+    - cantidad: int
+    - talla: string
+    - color: string
+    - camisetaPersonalizada: CamisetaPersonalizada
+}
+
+'------------------ Relaciones ------------------
+
+
 Artista "1" -- "0..*" Estampa
-Cliente "1" -- "0..*" Pedido
 Cliente "1" -- "1" CarritoDeCompras
-CarritoDeCompras "1" -- "0..*" Camiseta
-Pedido "1" -- "1..*" Camiseta
-Camiseta "1" -- "1" Estampa
+Cliente "1" -- "0..*" Pedido
+
+CarritoDeCompras "1" -- "0..*" ItemCarrito
+ItemCarrito "1" -- "1" CamisetaPersonalizada
+CamisetaPersonalizada "1" -- "1" Camiseta
+CamisetaPersonalizada "1" -- "1" Estampa
+
+Pedido "1" -- "1..*" CamisetaPersonalizada
+
 @enduml

@@ -1,19 +1,31 @@
-@startuml component
-package "Frontend" {
-    [Catálogo de camisetas]
-    [Gestión de artistas]
-    [Proceso de compra]
+@startuml DiagramaComponentesTienda
+
+package "Frontend Web" {
+  [Interfaz Cliente]
+  [Interfaz Artista]
+  [Interfaz Administrador]
 }
 
 package "Backend" {
-    [Controlador Catálogo]
-    [Controlador Artistas]
-    [Gestor Pedidos]
-    [Gestor Usuarios]
+  [Módulo de Autenticación]
+  [Módulo de Catálogo]
+  [Módulo de Personalización]
+  [Módulo de Carrito]
+  [Módulo de Pedidos]
+  [Módulo de Administración]
 }
 
-[Catálogo de camisetas] --> [Controlador Catálogo]
-[Gestión de artistas] --> [Controlador Artistas]
-[Proceso de compra] --> [Gestor Pedidos]
-[Controlador Catálogo] --> [Gestor Usuarios]
+[Interfaz Cliente] --> [Módulo de Autenticación]
+[Interfaz Cliente] --> [Módulo de Catálogo]
+[Interfaz Cliente] --> [Módulo de Personalización]
+[Interfaz Cliente] --> [Módulo de Carrito]
+[Interfaz Cliente] --> [Módulo de Pedidos]
+
+[Interfaz Artista] --> [Módulo de Autenticación]
+[Interfaz Artista] --> [Módulo de Catálogo]
+[Interfaz Artista] --> [Módulo de Administración]
+
+[Interfaz Administrador] --> [Módulo de Administración]
+[Interfaz Administrador] --> [Módulo de Autenticación]
+
 @enduml
