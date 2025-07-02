@@ -1,4 +1,4 @@
-from crud import pedido as pedido_db
+from CRUD import pedido as pedido_db
 from datetime import datetime
 
 def registrar_pedido(usuario_id, metodo_pago_id, items):
