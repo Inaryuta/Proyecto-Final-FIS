@@ -1,8 +1,11 @@
 const productsData = {
   camisa1: { name: "Camisa Blanca", price: 50000, img: "images/camisas/camisaBlanca.png" },
-  camisa2: { name: "Camisa Blanca manga Larga", price: 60000, img: "images/camisas/camisaBlanca/mangaLarga" },
+  camisa2: { name: "Camisa Blanca manga Larga", price: 60000, img: "images/camisas/camisaBlanca_MangaLarga.png" },
   camisa3: { name: "Camisa Negra", price: 50000, img: "images/camisas/camisaNegra.png" },
-  camisa4: { name: "Camisa Negra manga Larga", price: 60000, img: "images/camisas/camisaNegra/mangaLarga.png" }
+  camisa4: { name: "Camisa Negra manga Larga", price: 60000, img: "images/camisas/camisaNegra_mangaLarga.png" },
+  camisa5: { name: "Camisa Azul", price: 50000, img: "images/camisas/camisaAzul.png" },
+  camisa6: { name: "Camisa Rosa", price: 60000, img: "images/camisas/camisaRosa.png" },
+  camisa7: { name: "Camisa Gris", price: 60000, img: "images/camisas/camisaGris.png" }
 };
 
 if (window.location.pathname.includes("index.html") || window.location.pathname === "/" || window.location.pathname === "/T-Prints/") {
@@ -26,9 +29,6 @@ function viewProduct(id) {
   window.location.href = "product.html";
 }
 
-
-// Este bloque asegura que el resto del sitio pueda acceder a los productos
-//const products = Object.fromEntries(productsData.map(p => [p.id, p]));
 
 // Ver producto
 function viewProduct(id) {
