@@ -8,7 +8,8 @@ const productsData = {
   camisa7: { name: "Camisa Gris", price: 60000, img: "images/camisas/camisaGris.png" }
 };
 
-if (window.location.pathname.includes("index.html") || window.location.pathname === "/" || window.location.pathname === "/T-Prints/") {
+if (document.getElementById("products")) {
+
   const container = document.getElementById("products");
   if (container) {
     Object.entries(productsData).forEach(([id, product]) => {
