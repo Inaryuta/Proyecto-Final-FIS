@@ -8,7 +8,7 @@ def create_user(nombre, correo, contrasena, rol_id):
                 "INSERT INTO usuarios (nombre, correo, contrasena, rol_id, fecha_creacion) VALUES (%s, %s, %s, %s, NOW())",
                 (nombre, correo, contrasena, rol_id)
             )
-            connection.commit()  # ⚠️ IMPORTANTE: SIN ESTO NO SE GUARDA
+            connection.commit()
         connection.close()
         return True
     except Exception as e:

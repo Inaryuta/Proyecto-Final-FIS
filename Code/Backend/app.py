@@ -9,7 +9,7 @@ def register():
     nombre = data.get("nombre")
     correo = data.get("correo")
     contrasena = data.get("contrasena")
-    rol_id = data.get("rol_id")  # <- ¡este campo es obligatorio!
+    rol_id = data.get("rol_id")
 
     if not all([nombre, correo, contrasena, rol_id]):
         return jsonify({"message": "Faltan campos obligatorios", "success": False}), 400
