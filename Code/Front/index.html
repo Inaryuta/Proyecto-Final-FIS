@@ -1,40 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>T-Prints</title>
-  <link rel="stylesheet" href="style.css" />
-  <img src="images/imgcamisas.jpg" class="banner" alt="imagen" />
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>T-Prints</title>
+        <link rel="stylesheet" href="style.css" />
+        <img src="images/imgcamisas.jpg" class="banner" alt="imagen" />
 
-  <header class="header">
-    <nav class="nav">
-        <a class="nav-item active" href="index.html">Inicio</a>
-        <a class="nav-item" href="index.">Estampados</a>
-        <a class="nav-item" href="">Camisas</a>
-        <a class="nav-item" href="login.html">Login</a>
-        <a class="cart-icon" href="carrito.html">🛒</a>
-        <span class="text-sm ml-2 cursor-pointer" id="search-bar">🔍</span>
-    </nav>
-    <h1 class="title">Welcome to T-Prints</h1>
-    </header>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <header
+            class="bg-white border-b px-20 py-6 flex items-center justify-between"
+        >
+            <div class="text-lg font-bold">T-Prints</div>
+            <nav class="hidden md:flex gap-4 text-sm">
+                <a href="#" class="hover:text-red-500">Home</a>
+                <a href="#" class="hover:text-red-500">About</a>
+                <a href="/register.html" class="hover:text-red-500">Sign Up</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <div
+                    dir="ltr"
+                    class="bg-gray-100 px-3 py-1 rounded-md flex items-center"
+                >
+                    <input
+                        type="text"
+                        placeholder="What are you looking for?"
+                        class="bg-transparent outline-none text-sm w-48"
+                    />
+                    <span class="text-sm ml-2 cursor-pointer" id="search-bar"
+                        >🔍</span
+                    >
+                </div>
+                <a class="" href="">❤️</a>
+                <a href="">🛒</a>
+            </div>
+        </header>
 
+        <main class="container">
+            <section class="sidebar">
+                <img src="images/camisas.png" class="mockup-img" alt="" />
+            </section>
 
-  <main class="container">
-    <section class="sidebar">
-      <img src="images/camisas.png" class="mockup-img" alt="" />
-    </section>
+            <section class="products" id="products"></section>
+        </main>
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white border-t px-6 py-8 text-sm text-center text-gray-500"
+        >
+            &copy; 2025 UD reserved.
+        </footer>
 
-    
-     <section class="products" id="products">
-
-     </section>
-       
-   
-  </main>
-
-  <script src="./js/index.js"></script>
-</body>
+        <script src="./js/index.js"></script>
+    </body>
 </html>

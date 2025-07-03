@@ -30,7 +30,7 @@ def login():
     return jsonify(result)
 
 def login_user(correo, contrasena):
-    usuario = user.get_user_by_email(correo)
+    usuario = user_service.get_user_by_email(correo)
     if not usuario:
         return {"success": False, "message": "Usuario no encontrado"}
 
