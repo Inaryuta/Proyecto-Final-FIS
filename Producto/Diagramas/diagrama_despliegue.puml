@@ -1,21 +1,26 @@
 @startuml deployment
-node "Cliente Web" {
+
+actor Usuario
+Usuario --> Cliente : Usa navegador (1..*)
+
+node "Cliente Web" as Cliente {
     artifact "Navegador"
 }
 
-node "Servidor Web" {
-    artifact "Frontend (Angular)"
+node "Servidor Web" as WebServer {
+    artifact "Frontend"
 }
 
-node "Servidor de Aplicación" {
+node "Servidor de Aplicación" as AppServer {
     artifact "Backend (Node/Java/Python)"
 }
 
-node "Base de Datos" {
+node "Base de Datos" as DB {
     database "BD MySQL/PostgreSQL"
 }
 
-"Cliente Web" --> "Servidor Web"
-"Servidor Web" --> "Servidor de Aplicación"
-"Servidor de Aplicación" --> "Base de Datos"
+Cliente --> WebServer : HTTP/HTTPS (1..*)
+WebServer --> AppServer : API REST (1)
+AppServer --> DB : SQL (1)
+
 @enduml

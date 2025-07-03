@@ -46,6 +46,7 @@ Table carrito {
   id integer [primary key]
   usuario_id integer [unique]
   fecha_creacion timestamp
+  estado varchar(20) [not null, default: 'pendiente'] // 'pendiente', 'finalizado', 'cancelado'
 }
 
 Table items_carrito {
