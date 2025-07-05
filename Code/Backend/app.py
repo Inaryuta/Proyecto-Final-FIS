@@ -6,12 +6,12 @@ from services import user_service, carrito_service, pedido_service
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/register", methods=["POST"])
+@app.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
-    nombre = data.get("username")
-    correo = data.get("email")
-    contrasena = data.get("password")
+    nombre = data.get("nombre")
+    correo = data.get("correo")
+    contrasena = data.get("contrasena")
     rol_id = data.get("rol_id")
 
     if not all([nombre, correo, contrasena, rol_id]):
@@ -20,11 +20,11 @@ def register():
     result = user_service.register_user(nombre, correo, contrasena, rol_id)
     return jsonify(result)
 
-@app.route("/api/login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    correo = data.get("email")
-    contrasena = data.get("password")
+    correo = data.get("correo")
+    contrasena = data.get("contrasena")
 
     if not correo or not contrasena:
         return jsonify({"message": "Campos incompletos", "success": False}), 400
