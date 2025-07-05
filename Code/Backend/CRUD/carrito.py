@@ -3,27 +3,17 @@ from db import get_connection
 def crear_carrito(usuario_id, fecha_creacion):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO carrito (usuario_id, fecha_creacion) VALUES (%s, %s)",
-        (usuario_id, fecha_creacion)
-    )
+    cursor.execute("INSERT INTO carrito (usuario_id, fecha_creacion) VALUES (%s, %s)", (usuario_id, fecha_creacion))
     conn.commit()
-    carrito_id = cursor.lastrowid
-    cursor.close()
     conn.close()
-    return carrito_id
 
 def obtener_carrito_por_usuario(usuario_id):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute(
-        "SELECT * FROM carrito WHERE usuario_id = %s",
-        (usuario_id,)
-    )
-    result = cursor.fetchone()
-    cursor.close()
+    cursor.execute("SELECT * FROM carrito WHERE usuario_id = %s", (usuario_id,))
+    carrito = cursor.fetchone()
     conn.close()
-    return result
+    return carrito
 
 def eliminar_carrito(carrito_id):
     conn = get_connection()
@@ -71,3 +61,10 @@ def obtener_items_carrito(carrito_id):
     cursor.close()
     conn.close()
     return items
+
+def actualizar_estado_carrito(usuario_id, nuevo_estado):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE carrito SET estado = %s WHERE usuario_id = %s", (nuevo_estado, usuario_id))
+    conn.commit()
+    conn.close()

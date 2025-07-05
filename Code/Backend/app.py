@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from services import user_service
+from services import user_service, carrito_service, pedido_service
 
 app = Flask(__name__)
 CORS(app)
@@ -31,16 +32,23 @@ def login():
     result = user_service.login_user(correo, contrasena)
     return jsonify(result)
 
-def login_user(correo, contrasena):
-    usuario = user_service.get_user_by_email(correo)
-    if not usuario:
-        return {"success": False, "message": "Usuario no encontrado"}
+@app.route("/carrito", methods=["POST"])
+def crear_carrito():
+    data = request.get_json()
+    usuario_id = data.get("usuario_id")
+    if not usuario_id:
+        return jsonify({"message": "Falta usuario_id", "success": False})
+    return jsonify(carrito_service.crear_carrito_si_no_existe(usuario_id))
 
-    if usuario["contrasena"] != contrasena:
-        return {"success": False, "message": "Contraseña incorrecta"}
+@app.route("/pedido", methods=["POST"])
+def crear_pedido():
+    data = request.get_json()
+    return jsonify(pedido_service.crear_nuevo_pedido(data))
 
-    return {"success": True, "id": usuario["id"], "correo": usuario["correo"], "nombre": usuario["nombre"]}
-
+@app.route("/pedidos/<int:usuario_id>", methods=["GET"])
+def listar_pedidos(usuario_id):
+    return jsonify(pedido_service.obtener_pedidos_usuario(usuario_id))
 
 if __name__ == '__main__':
     app.run(debug=True)
+
