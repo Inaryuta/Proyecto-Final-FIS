@@ -12,30 +12,31 @@ loginFrorm.addEventListener("submit", async function (event) {
     const passwordValue = document.getElementById('password').value;
 
     // Perform your login logic here
-    console.log("Email:", mailValue);
+    console.log("Email:", emailValue);
     console.log("Password:", passwordValue);
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: emailValue,
-                password: passwordValue
-            })
-        });
+            const response = await fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            correo: emailValue,
+            contrasena: passwordValue
+        })
+    });
 
-        if (response.ok) {
-
-            const data = await response.json();
-            alert('Login exitoso: ' + data.message);
-
-        } else {
-            const errorData = await response.json();
-            alert('Error: ' + errorData.message);
-        }
+    const data = await response.json();
+    if (response.ok) {
+        message.textContent = "Login successful!";
+        message.style.color = "green";
+        // Aquí puedes redirigir si quieres:
+        // window.location.href = "/Front/index.html";
+    } else {
+        message.textContent = data.message || "Login failed.";
+        message.style.color = "red";
+    }
 
     } catch (error) {
         // Handle any errors that occur during the fetch

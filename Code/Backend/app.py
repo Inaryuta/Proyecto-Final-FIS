@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from services import user_service
 from services import user_service, carrito_service, pedido_service
 
 app = Flask(__name__)
