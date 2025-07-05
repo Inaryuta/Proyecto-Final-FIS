@@ -3,15 +3,12 @@ from db import get_connection
 def crear_pedido(usuario_id, total, metodo_pago_id, estado, fecha):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO pedidos (usuario_id, fecha, total, metodo_pago_id, estado) VALUES (%s, %s, %s, %s, %s)",
-        (usuario_id, fecha, total, metodo_pago_id, estado)
-    )
+    cursor.execute("""
+        INSERT INTO pedidos (usuario_id, total, metodo_pago_id, estado, fecha)
+        VALUES (%s, %s, %s, %s, %s)
+    """, (usuario_id, total, metodo_pago_id, estado, fecha))
     conn.commit()
-    pedido_id = cursor.lastrowid
-    cursor.close()
     conn.close()
-    return pedido_id
 
 def agregar_detalle_pedido(pedido_id, camiseta_personalizada_id, cantidad, subtotal):
     conn = get_connection()
@@ -27,12 +24,8 @@ def agregar_detalle_pedido(pedido_id, camiseta_personalizada_id, cantidad, subto
 def obtener_pedidos_por_usuario(usuario_id):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute(
-        "SELECT * FROM pedidos WHERE usuario_id = %s ORDER BY fecha DESC",
-        (usuario_id,)
-    )
+    cursor.execute("SELECT * FROM pedidos WHERE usuario_id = %s", (usuario_id,))
     pedidos = cursor.fetchall()
-    cursor.close()
     conn.close()
     return pedidos
 
