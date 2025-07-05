@@ -8,21 +8,21 @@ loginFrorm.addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent the form from submitting normally
 
     // Get the values from the input fields
-    const usernameValue = document.getElementById('username').value;
+    const emailValue = document.getElementById('email').value;
     const passwordValue = document.getElementById('password').value;
 
     // Perform your login logic here
-    console.log("Username:", usernameValue);
+    console.log("Email:", mailValue);
     console.log("Password:", passwordValue);
 
     try {
-        const response = await fetch("http://localhost:3000/T-Prints/login", {
+        const response = await fetch("http://127.0.0.1:5000/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: usernameValue,
+                email: emailValue,
                 password: passwordValue
             })
         });
