@@ -5,7 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>T-Prints</title>
         <link rel="stylesheet" href="style.css" />
-        <img src="images/imgcamisas.jpg" class="banner" alt="imagen" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
 
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
@@ -18,9 +21,13 @@
             <nav class="hidden md:flex gap-4 text-sm">
                 <a href="#" class="hover:text-red-500">Home</a>
                 <a href="#" class="hover:text-red-500">About</a>
-                <a href="../Front/register.html" class="hover:text-red-500">Sign Up</a>
+                <a href="../Front/register.html" class="hover:text-red-500"
+                    >Sign Up</a
+                >
             </nav>
-            <div class="flex items-center space-x-4">
+
+            <!-- Search bar and cart icon -->
+            <div class="flex items-center gap-5">
                 <div
                     dir="ltr"
                     class="bg-gray-100 px-3 py-1 rounded-md flex items-center"
@@ -34,18 +41,66 @@
                         >🔍</span
                     >
                 </div>
-                <a class="" href="">❤️</a>
-                <a href="">🛒</a>
+                <a href="/Front/carrito.html">🛒</a>
+
+                <div class="relative">
+                    <!-- Ícono de perfil -->
+                    <i
+                        id="menu-button"
+                        class="fas fa-user-circle text-2xl text-gray-700 cursor-pointer"
+                    ></i>
+
+                    <!-- Menú desplegable -->
+                    <div
+                        id="profile-dropdown"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50"
+                    >
+                        <ul class="py-2">
+                            <li
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Mi perfil
+                            </li>
+                            <li
+                                id="cart"
+                                onclick="window.location.href='../Front/carrito.html'"
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Carrito
+                            </li>
+                            <li
+                                id="logout"
+                                onclick="window.location.href='../Front/login.html'"
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Cerrar sesión
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </header>
+        <!-- SubNavigation bar -->
+        <nav class="bg-gray-50 border-b px-8 py-2"  >
+            <ul class="flex justify-center gap-6 text-sm font-medium">
+                <li><p class="cursor-pointer hover:text-red-500">Camisas</p></li>
+                <li><p class="cursor-pointer hover:text-red-500">Estampas</p></li>
+            </ul>
+        </nav>
 
-        <main class="container">
-            <section class="sidebar">
-                <img src="images/camisas.png" class="mockup-img" alt="" />
-            </section>
+        <!-- Main content -->
 
-            <section class="products" id="products"></section>
+        <main class="container flex flex-col items-center px-6 py-8">
+            <h1 class="text-3xl font-bold mb-8 text-center">Productos</h1>
+
+            <div
+                id="products-container"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+                <!-- Aquí se generarán los productos dinámicamente -->
+            </div>
         </main>
+
         <!-- Footer -->
         <footer
             class="bg-black text-white border-t px-6 py-8 text-sm text-center text-gray-500"

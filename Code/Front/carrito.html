@@ -1,39 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>T-Prints</title>
-  <link rel="stylesheet" href="style.css" />
-  <img src="images/imgcamisas.jpg" class="banner" alt="imagen" />
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>T-Prints</title>
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
 
-  <header class="header">
-    <nav class="nav">
-        <a class="nav-item" href="index.html">Camisas
-        <a class="nav-item" href="index.">Estampados</a>
-        <a class="nav-item" href="login.html">Login</a>
-        <a class="cart-icon" href="carrito.html">🛒</a>
-        <span class="text-sm ml-2 cursor-pointer" id="search-bar">🔍</span>
-    </nav>
-    
-    </header>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <!-- Navbar -->
+        <header
+            class="bg-white border-b px-20 py-6 flex items-center justify-between"
+        >
+            <div class="text-lg font-bold">T-Prints</div>
+            <nav class="hidden md:flex gap-4 text-sm">
+                <a href="../Front/index.html" class="hover:text-red-500">Home</a>
+                <a href="#" class="hover:text-red-500">About</a>
+                <a href="../Front/register.html" class="hover:text-red-500"
+                    >Sign Up</a
+                >
+            </nav>
 
+            <!-- Search bar and cart icon -->
+            <div class="flex items-center gap-5">
+                <div
+                    dir="ltr"
+                    class="bg-gray-100 px-3 py-1 rounded-md flex items-center"
+                >
+                    <input
+                        type="text"
+                        placeholder="What are you looking for?"
+                        class="bg-transparent outline-none text-sm w-48"
+                    />
+                    <span class="text-sm ml-2 cursor-pointer" id="search-bar"
+                        >🔍</span
+                    >
+                </div>
+                <a href="">🛒</a>
 
-  <main class="container">
-    <section class="sidebar">
-      <img src="images/carritoinici.png" class="mockup-img" alt="" />
-    </section>
+                <div class="relative">
+                    <!-- Ícono de perfil -->
+                    <i
+                        id="menu-button"
+                        class="fas fa-user-circle text-2xl text-gray-700 cursor-pointer"
+                    ></i>
 
-    
-     <section class="products" id="products">
+                    <!-- Menú desplegable -->
+                    <div
+                        id="profile-dropdown"
+                        class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50"
+                    >
+                        <ul class="py-2">
+                            <li
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Mi perfil
+                            </li>
+                            <li
+                                id="cart"
+                                onclick="window.location.href='../Front/carrito.html'"
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Carrito
+                            </li>
+                            <li
+                                id="logout"
+                                onclick="window.location.href='../Front/login.html'"
+                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                            >
+                                Cerrar sesión
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-     </section>
-       
-   
-  </main>
+        <main class="container flex flex-col items-center mt-10">
 
-  <script src="./js/carr.js"></script>
-</body>
+            <h1 class="text-2xl font-bold mb-6 text-center items-center">Carrito de Compras</h1>
+
+            <section class="products" id="products"></section>
+        </main>
+
+        <script src="./js/carrito.js"></script>
+    </body>
 </html>
