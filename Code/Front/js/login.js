@@ -1,10 +1,10 @@
 console.log("Login script loaded");
 
-const loginFrorm = document.getElementById('loginForm');
+const loginForm = document.getElementById('loginForm');
 const message = document.getElementById('message');
 
 
-loginFrorm.addEventListener("submit", async function (event) {
+loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     // Get the values from the input fields
@@ -31,24 +31,16 @@ loginFrorm.addEventListener("submit", async function (event) {
             message.textContent = "Login successful!";
             message.style.color = "green";
 
-            window.location.href = "/Front/index.html";
+            sessionStorage.setItem("user", JSON.stringify(data.user));
+
             localStorage.removeItem("cart");
+            window.location.href = "/Front/index.html";
 
 
         } else {
             message.textContent = data.message || "Login failed.";
             message.style.color = "red";
 
-            let attemps = data.attemps || 0; // Obtener el número de intentos desde la respuesta
-            if (attemps >= 3) {
-                alert("Has alcanzado el número máximo de intentos. Por favor, inténtalo más tarde.");
-
-                //bloquear el acceso temporalmente
-                // Aquí podrías implementar una lógica para bloquear el acceso temporalmente
-
-
-
-            }
         }
 
     } catch (error) {

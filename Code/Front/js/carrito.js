@@ -12,6 +12,37 @@ window.addEventListener('click', (e) => {
     }
 });
 
+
+
+
+//Verificar si el usuario está logeado
+// y mostrar su nombre en el perfil
+const user = JSON.parse(sessionStorage.getItem("user"));
+const profile = document.getElementById('perfil');
+
+if (user) {
+    console.log("Nombre del usuario:", user.nombre);
+    const nombreUsuario = user.nombre || "Usuario Anónimo";
+
+    if (profile) {
+        profile.innerText = nombreUsuario;
+    }
+
+} else {
+    console.warn("Usuario no logeado");
+
+    if (profile) {
+        profile.innerText = "Invitado";  // O déjalo vacío si prefieres
+    }
+
+    // window.location.href = "/Front/login.html";
+}
+
+
+
+
+
+
 // Mostrar carrito de compras al cargar
 document.addEventListener('DOMContentLoaded', () => {
     renderCart();
@@ -30,8 +61,8 @@ function renderCart() {
 
         // Determinar si el producto tiene estampa
         const hasStamp = item.estampa && item.estampa.titulo;
-        const displayName = hasStamp ? 
-            `${item.camisa ? item.camisa.name : item.name} con ${item.estampa.titulo}` : 
+        const displayName = hasStamp ?
+            `${item.camisa ? item.camisa.name : item.name} con ${item.estampa.titulo}` :
             item.name;
 
         cartBody.innerHTML += `
