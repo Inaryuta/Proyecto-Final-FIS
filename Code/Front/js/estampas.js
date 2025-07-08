@@ -56,56 +56,57 @@ function main() {
     try {
         // Verificar si hay una camisa seleccionada
         const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+        const container = document.getElementById("products-container");
         
         if (!selectedProduct) {
-            // Si no hay camisa seleccionada, mostrar mensaje
-            const container = document.getElementById("products-container");
-            container.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <p class="text-gray-600 text-lg mb-4">Primero debes seleccionar una camisa</p>
+            // Si no hay camisa seleccionada, mostrar mensaje pero seguir mostrando estampas
+            const messageContainer = document.createElement("div");
+            messageContainer.className = "col-span-full mb-8";
+            messageContainer.innerHTML = `
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+                    <p class="text-gray-700 text-lg mb-4">⚠️ Primero debes seleccionar una camisa</p>
                     <a href="index.html" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
                         Ir a seleccionar camisa
                     </a>
                 </div>
             `;
-            return;
+            container.appendChild(messageContainer);
+        } else {
+            // Mostrar información de la camisa seleccionada
+            const infoContainer = document.createElement("div");
+            infoContainer.className = "bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6";
+            infoContainer.innerHTML = `
+                <div class="flex items-center gap-4">
+                    <img src="${selectedProduct.img}" alt="${selectedProduct.name}" class="w-16 h-16 object-contain">
+                    <div>
+                        <h3 class="font-semibold text-gray-800">${selectedProduct.name}</h3>
+                        <p class="text-sm text-gray-600">Cantidad: ${selectedProduct.quantity}</p>
+                        <p class="text-sm text-blue-600">Ahora selecciona una estampa para esta camisa</p>
+                    </div>
+                </div>
+            `;
+            
+            container.parentNode.insertBefore(infoContainer, container);
         }
 
-        // Mostrar información de la camisa seleccionada
-        const infoContainer = document.createElement("div");
-        infoContainer.className = "bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6";
-        infoContainer.innerHTML = `
-            <div class="flex items-center gap-4">
-                <img src="${selectedProduct.img}" alt="${selectedProduct.name}" class="w-16 h-16 object-contain">
-                <div>
-                    <h3 class="font-semibold text-gray-800">${selectedProduct.name}</h3>
-                    <p class="text-sm text-gray-600">Cantidad: ${selectedProduct.quantity}</p>
-                    <p class="text-sm text-blue-600">Ahora selecciona una estampa para esta camisa</p>
-                </div>
-            </div>
-        `;
-        
-        const container = document.getElementById("products-container");
-        container.parentNode.insertBefore(infoContainer, container);
-
-        // const products = await obtenerDatos();
-
+        // Siempre mostrar las estampas
         estampas.forEach(estampa => {
             // Crear un div para cada estampa
             const div = document.createElement("div");
             div.className = "bg-white rounded-lg shadow-md overflow-hidden";
             
-            // Determinar si la estampa está disponible
-            const isAvailable = estampa.estado === "aprobada";
+            // Determinar si la estampa está disponible y si hay camisa seleccionada
+            const isAvailable = estampa.estado === "aprobada" && selectedProduct;
+            const isDisabled = !selectedProduct;
             
             div.innerHTML = `
             <div class="relative group">
                 <img 
                     src="${estampa.img}"   
                     alt="${estampa.titulo}" 
-                    class="w-full h-64 object-contain transition-all duration-300 ${!isAvailable ? 'grayscale opacity-50' : ''}">
+                    class="w-full h-64 object-contain transition-all duration-300 ${!isAvailable || isDisabled ? 'grayscale opacity-50' : ''}">
 
-                ${isAvailable ? `
+                ${isAvailable && !isDisabled ? `
                 <div class="absolute bottom-0 left-0 right-0 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
                         class="select-stamp-btn bg-white hover:bg-gray-100 text-gray-800 px-3 py-1 text-sm font-medium shadow-md w-full"
@@ -114,7 +115,9 @@ function main() {
                 </div>
                 ` : `
                 <div class="absolute bottom-0 left-0 right-0 bg-gray-800 bg-opacity-75 p-2">
-                    <p class="text-white text-xs text-center">No disponible</p>
+                    <p class="text-white text-xs text-center">
+                        ${isDisabled ? 'Selecciona una camisa primero' : 'No disponible'}
+                    </p>
                 </div>
                 `}
             </div>
@@ -130,8 +133,8 @@ function main() {
         `;
             container.appendChild(div);
             
-            // Solo agregar event listener si la estampa está disponible
-            if (isAvailable) {
+            // Solo agregar event listener si la estampa está disponible Y hay camisa seleccionada
+            if (isAvailable && !isDisabled) {
                 const selectStampBtn = div.querySelector('.select-stamp-btn');
                 selectStampBtn.addEventListener('click', () => {
                     selectStampAndAddToCart(estampa.id);
