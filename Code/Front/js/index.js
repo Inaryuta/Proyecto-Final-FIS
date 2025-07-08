@@ -240,5 +240,5 @@ function goToNextStep() {
     localStorage.setItem("selectedProduct", JSON.stringify(tempSelection));
 
     // Redirigir a la página que tú indiques
-    window.location.href = "/Front/estampas.html";  // <-- cámbialo por tu ruta
+    window.location.href = "../Front/estampas.html";  // <-- cámbialo por tu ruta
 }
