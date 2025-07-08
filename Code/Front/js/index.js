@@ -67,24 +67,6 @@ function main() {
                     class="w-full h-64 object-contain transition-all duration-300">
 
                 <div class="absolute bottom-0 left-0 right-0 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div class="relative">
-                        <button 
-                            onclick="toggleDropDown('dropdown-${product.id}')"
-                            class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 text-sm font-medium shadow-md w-full flex items-center justify-center">
-                            Selecionar talla ▼
-                        </button>
-                        <div id="dropdown-${product.id}" class="absolute bottom-full left-0 right-0 mb-1 bg-white rounded-md shadow-lg hidden">
-                            <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md">
-                                Agregar al carrito
-                            </button>
-                            <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                M
-                            </button>
-                            <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                S
-                            </button>
-                        </div>
-                    </div>
                     <button 
                         onclick="addProduct('${product.id}')"
                         class="bg-white hover:bg-gray-100 text-gray-800 px-3 py-1 text-sm font-medium shadow-md w-full">Agregar al carrito
