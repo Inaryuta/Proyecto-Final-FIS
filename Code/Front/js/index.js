@@ -59,7 +59,12 @@ const products = [
     { id: 3, name: "Camisa Negra manga Larga", price: 80000, img: "images/camisas/camisaNegra_mangaLarga.png", talla: "XL", stock: 3 },
     { id: 4, name: "Camisa Azul", price: 90000, img: "images/camisas/camisaAzul.png", talla: "M", stock: 12 },
     { id: 5, name: "Camisa Rosa", price: 100000, img: "images/camisas/camisaRosa.png", talla: "L", stock: 7 },
-    { id: 6, name: "Camisa Gris", price: 110000, img: "images/camisas/camisaGris.png", talla: "S", stock: 4 }
+    { id: 6, name: "Camisa Gris", price: 110000, img: "images/camisas/camisaGris.png", talla: "S", stock: 4 },
+    { id: 7, name: "Camisa Verde", price: 110000, img: "images/camisas/camisaVerde.png", talla: "M", stock: 20},
+    { id: 8, name: "Camisa Tipo Polo Rosa", price: 300000, img: "images/camisas/camisaRosa_TipoPolo.png", talla: "M", stock: 25},
+    { id: 9, name: "Camisa Tipo Polo Cafe", price: 300000, img: "images/camisas/camisaCafe_TipoPolo.png", talla: "L", stock: 20},
+    { id: 10, name: "Camisa Tipo Polo Azul", price: 300000, img: "images/camisas/camisaAzul_TipoPolo.png", talla: "XL", stock: 22},
+    { id: 12, name: "Camisa Tipo Polo Morada", price: 300000, img: "images/camisas/camisaMorada_TipoPolo.png", talla: "M", stock: 20},
 ];
 
 
