@@ -42,6 +42,18 @@ const estampas = [
     { id: 3, titulo: "Nacional", descripcion: "Logo del equipo de futbol de Nacional", img: "images/estampas/estampaNacional.png", estado: "aprobada" },
     { id: 4, titulo: "Naruto", descripcion: "Logo de la serie animada Naruto", img: "images/estampas/estampaNaruto.png", estado: "pendiente" },
     { id: 5, titulo: "RealMadrid", descripcion: "Logo del equipo de futbol RealMadrid", img: "images/estampas/estampaRM.png", estado: "aprobada" },
+    { id: 6, titulo: "Stitch", descripcion: "Stitch de lilo y Stitch", img: "images/estampas/estampaDibujo1.png", estado: "aprobada" },
+    { id: 7, titulo: "Piolin", descripcion: "Estampa de piolin", img: "images/estampas/estampaDibujo2.png", estado: "aprobada" },
+    { id: 8, titulo: "Tralalero", descripcion: "Estampa de Tralalero Tralala", img: "images/estampas/estampaDibujo3.png", estado: "pendiente" },
+    { id: 9, titulo: "Gato SM", descripcion: "Gato de la serie Sailor Moon", img: "images/estampas/estampaDibujo4.png", estado: "aprobada" },
+    { id: 10, titulo: "Black Sabbath", descripcion: "Logo banda Black Sabbath", img: "images/estampas/estampaBanda1.png", estado: "pendiente" },
+    { id: 11, titulo: "AC DC", descripcion: "Logo banda AC DC", img: "images/estampas/estampaBanda2.png", estado: "aprobada" },
+    { id: 12, titulo: "Nirvana", descripcion: "Logo banda Nirvana", img: "images/estampas/estampaBanda3.png", estado: "pendiente" },
+    { id: 13, titulo: "Linkin Park", descripcion: "Logo banda Linkin Park", img: "images/estampas/estampaBanda4.png", estado: "pendiente" },
+    { id: 14, titulo: "Green Day", descripcion: "Logo banda GreenDay", img: "images/estampas/estampaBanda5.png", estado: "aprobada" },
+    
+
+
 ];
 
 
