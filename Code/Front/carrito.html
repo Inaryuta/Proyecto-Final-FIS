@@ -1,93 +1,107 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>T-Prints</title>
-        <link rel="stylesheet" href="style.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        />
 
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body>
-        <!-- Navbar -->
-        <header
-            class="bg-white border-b px-20 py-6 flex items-center justify-between"
-        >
-            <div class="text-lg font-bold">T-Prints</div>
-            <nav class="hidden md:flex gap-4 text-sm">
-                <a href="../Front/index.html" class="hover:text-red-500">Home</a>
-                <a href="#" class="hover:text-red-500">About</a>
-                <a href="../Front/register.html" class="hover:text-red-500"
-                    >Sign Up</a
-                >
-            </nav>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>T-Prints</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-            <!-- Search bar and cart icon -->
-            <div class="flex items-center gap-5">
-                <div
-                    dir="ltr"
-                    class="bg-gray-100 px-3 py-1 rounded-md flex items-center"
-                >
-                    <input
-                        type="text"
-                        placeholder="What are you looking for?"
-                        class="bg-transparent outline-none text-sm w-48"
-                    />
-                    <span class="text-sm ml-2 cursor-pointer" id="search-bar"
-                        >🔍</span
-                    >
-                </div>
-                <a href="">🛒</a>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-                <div class="relative">
-                    <!-- Ícono de perfil -->
-                    <i
-                        id="menu-button"
-                        class="fas fa-user-circle text-2xl text-gray-700 cursor-pointer"
-                    ></i>
+<body>
+    <!-- Navbar -->
+    <header class="bg-white border-b px-20 py-6 flex items-center justify-between">
+        <div class="text-lg font-bold">T-Prints</div>
+        <nav class="hidden md:flex gap-4 text-sm">
+            <a href="../Front/index.html" class="hover:text-red-500">Home</a>
+            <a href="#" class="hover:text-red-500">About</a>
+            <a href="../Front/register.html" class="hover:text-red-500">Sign Up</a>
+        </nav>
 
-                    <!-- Menú desplegable -->
-                    <div
-                        id="profile-dropdown"
-                        class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50"
-                    >
-                        <ul class="py-2">
-                            <li
-                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                            >
-                                Mi perfil
-                            </li>
-                            <li
-                                id="cart"
-                                onclick="window.location.href='../Front/carrito.html'"
-                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                            >
-                                Carrito
-                            </li>
-                            <li
-                                id="logout"
-                                onclick="window.location.href='../Front/login.html'"
-                                class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                            >
-                                Cerrar sesión
-                            </li>
-                        </ul>
-                    </div>
+        <!-- Search bar and cart icon -->
+        <div class="flex items-center gap-5">
+            <div dir="ltr" class="bg-gray-100 px-3 py-1 rounded-md flex items-center">
+                <input type="text" placeholder="What are you looking for?"
+                    class="bg-transparent outline-none text-sm w-48" />
+                <span class="text-sm ml-2 cursor-pointer" id="search-bar">🔍</span>
+            </div>
+            <a href="">🛒</a>
+
+            <div class="relative">
+                <!-- Ícono de perfil -->
+                <i id="menu-button" class="fas fa-user-circle text-2xl text-gray-700 cursor-pointer"></i>
+
+                <!-- Menú desplegable -->
+                <div id="profile-dropdown"
+                    class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
+                    <ul class="py-2">
+                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Mi perfil
+                        </li>
+                        <li id="cart" onclick="window.location.href='../Front/carrito.html'"
+                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Carrito
+                        </li>
+                        <li id="logout" onclick="window.location.href='../Front/login.html'"
+                            class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                            Cerrar sesión
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <main class="container flex flex-col items-center mt-10">
+    <main class="container flex flex-col items-center mt-10">
 
-            <h1 class="text-2xl font-bold mb-6 text-center items-center">Carrito de Compras</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center items-center">Carrito de Compras</h1>
 
-            <section class="products" id="products"></section>
-        </main>
+        <section class="products" id="products"></section>
 
-        <script src="./js/carrito.js"></script>
-    </body>
+        <div class="w-full flex flex-col lg:flex-row lg:space-x-6">
+            <!-- Parte izquierda: tabla -->
+            <div class="flex-1 overflow-x-auto">
+                <table class="min-w-full border text-center mb-4">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-2 px-4">Producto</th>
+                            <th class="py-2 px-4">Precio</th>
+                            <th class="py-2 px-4">Cantidad</th>
+                            <th class="py-2 px-4">Subtotal</th>
+                            <th class="py-2 px-4">Quitar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="cart-body" class="divide-y">
+                        <!-- Items se generan dinámicamente -->
+                    </tbody>
+                </table>
+
+                <div class="flex space-x-4 mb-4">
+                    <button onclick="returnToShop()" class="px-4 py-2 border">Return To Shop</button>
+                    <button onclick="updateCart()" class="px-4 py-2 border">Update Cart</button>
+                    <button onclick="deleteCart()" class="px-4 py-2 border text-red-500">Delete Cart 🗑️</button>
+                </div>
+            </div>
+
+            <!-- Parte derecha: resumen -->
+            <div class="w-full lg:w-1/3 border p-4">
+                <p class="mb-2">Subtotal: $<span id="subtotal">0</span></p>
+                <p class="mb-4 font-semibold">Total: $<span id="total">0</span></p>
+                <button class="w-full bg-red-500 text-white py-2">Process to checkout</button>
+            </div>
+        </div>
+
+    </main>
+
+
+    <script src="./js/carrito.js"></script>
+
+
+</body>
+
+
 </html>
