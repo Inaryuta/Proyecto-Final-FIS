@@ -30,9 +30,9 @@ loginFrorm.addEventListener("submit", async function (event) {
         if (response.ok) {
             message.textContent = "Login successful!";
             message.style.color = "green";
-            // Aquí puedes redirigir si quieres:
-            // window.location.href = "/Front/index.html";
-            window.location.href = "/Front/index.html"; // Redirigir a la página principal
+
+            window.location.href = "/Front/index.html";
+            localStorage.removeItem("cart");
 
 
         } else {

@@ -28,26 +28,38 @@ function renderCart() {
         const itemSubtotal = item.price * item.quantity;
         subtotal += itemSubtotal;
 
+        // Determinar si el producto tiene estampa
+        const hasStamp = item.estampa && item.estampa.titulo;
+        const displayName = hasStamp ? 
+            `${item.camisa ? item.camisa.name : item.name} con ${item.estampa.titulo}` : 
+            item.name;
+
         cartBody.innerHTML += `
             <tr>
-                <td class="py-2 px-4 flex items-center gap-2">
-                    <img src="${item.img}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
-                    <span>${item.name}</span>
-                </td>
-                <td class="py-2 px-4">$${item.price}</td>
                 <td class="py-2 px-4">
+                    <div class="flex items-center gap-3">
+                        <img src="${item.img}" alt="${displayName}" class="w-12 h-12 object-cover rounded">
+                        <div class="text-left">
+                            <span class="block font-medium">${displayName}</span>
+                            ${item.talla ? `<span class="text-sm text-gray-500">Talla: ${item.talla}</span>` : ''}
+                            ${hasStamp ? `<span class="text-xs text-blue-600 block">Estampa: ${item.estampa.titulo}</span>` : ''}
+                        </div>
+                    </div>
+                </td>
+                <td class="py-2 px-4 text-center">$${item.price ? item.price.toLocaleString() : 'N/A'}</td>
+                <td class="py-2 px-4 text-center">
                     <input type="number" min="1" value="${item.quantity}" onchange="changeQuantity(${index}, this.value)" class="border w-16 text-center">
                 </td>
-                <td class="py-2 px-4">$${itemSubtotal}</td>
-                <td class="py-2 px-4">
-                    <button onclick="removeProduct(${index})" class="text-red-500">🗑️</button>
+                <td class="py-2 px-4 text-center">$${itemSubtotal.toLocaleString()}</td>
+                <td class="py-2 px-4 text-center">
+                    <button onclick="removeProduct(${index})" class="text-red-500 hover:text-red-700">🗑️</button>
                 </td>
             </tr>
         `;
     });
 
-    document.getElementById("subtotal").innerText = subtotal;
-    document.getElementById("total").innerText = subtotal;
+    document.getElementById("subtotal").innerText = `$${subtotal.toLocaleString()}`;
+    document.getElementById("total").innerText = `$${subtotal.toLocaleString()}`;
 }
 
 // Cambiar cantidad

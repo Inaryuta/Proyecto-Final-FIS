@@ -76,9 +76,52 @@
         </div>
     </main>
 
+    <!-- Modal for product selection -->
+    <dialog
+        id="product-modal"
+        class="rounded-md p-0 w-full max-w-md backdrop:bg-black/50"
+    >
+        <form
+            method="dialog"
+            class="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto"
+        >
+            <!-- Botón cerrar -->
+            <button
+                type="button"
+                id="close-modal-btn"
+                class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
+            >
+                &times;
+            </button>
+
+            <img
+                id="modal-img"
+                src=""
+                alt="Producto"
+                class="w-full h-48 object-contain mb-4"
+            />
+            <h2 id="modal-title" class="text-xl font-bold mb-2">Camisa</h2>
+
+            <label class="block mb-2 font-medium">Cantidad:</label>
+            <input
+                type="number"
+                id="modal-quantity"
+                min="1"
+                value="1"
+                class="w-full border p-2 mb-4"
+            />
+
+            <button
+                type="button"
+                id="add-to-cart-modal-btn"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
+            >
+                Agregar al carrito
+            </button>
+        </form>
+    </dialog>
+
     <!-- Footer -->
-
-
     <script src="./js/index.js"></script>
 </body>
 <footer class="bg-black text-white border-t px-6 py-8 text-sm text-center text-gray-500">

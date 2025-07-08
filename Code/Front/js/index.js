@@ -16,6 +16,20 @@ window.addEventListener('click', (e) => {
 
 // Datos de los productos
 // nombre, precio, imagen, talla, stock
+const EXPIRATION_MINUTES = 30;
+
+// Al cargar la página
+const lastCartTime = localStorage.getItem("cartTimestamp");
+if (lastCartTime) {
+    const now = new Date().getTime();
+    const diffMinutes = (now - parseInt(lastCartTime)) / 60000;
+
+    if (diffMinutes > EXPIRATION_MINUTES) {
+        localStorage.removeItem("cart");
+        localStorage.removeItem("cartTimestamp");
+        console.log("Carrito expirado");
+    }
+}
 
 
 // Datos de los productos
@@ -49,6 +63,14 @@ const products = [
 ];
 
 
+// <button onclick="window.modal.showModal()">Abrir Modal</button>
+
+//         <dialog id="modal" class="bg-white p-6 rounded-lg shadow-lg">
+//             <h2>Prueba</h2>
+//             <p>Sirve¿</p>
+//             <button onclick="window.modal.close()">
+//                 Cerrar
+//         </dialog>
 
 
 
@@ -73,10 +95,13 @@ function main() {
 
                 <div class="absolute bottom-0 left-0 right-0 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button 
-                        onclick="addProduct('${product.id}')"
-                        class="bg-white hover:bg-gray-100 text-gray-800 px-3 py-1 text-sm font-medium shadow-md w-full">Agregar al carrito
+                        class="add-to-cart-btn bg-white hover:bg-gray-100 text-gray-800 px-3 py-1 text-sm font-medium shadow-md w-full"
+                        data-product-id="${product.id}">Agregar al carrito
                     </button>
+                    
                 </div>
+
+                
             </div>
             
             <div class="p-4">
@@ -89,6 +114,12 @@ function main() {
 
         `;
             container.appendChild(div);
+            
+            // Add event listener to the button after it's been added to the DOM
+            const addToCartBtn = div.querySelector('.add-to-cart-btn');
+            addToCartBtn.addEventListener('click', () => {
+                openModal(product.id);
+            });
         });
     } catch (err) {
         console.error(err);
@@ -105,65 +136,109 @@ function toggleDropdown(dropdownId) {
     dropdown.classList.toggle('hidden');
 }
 
-
+// Agrega un producto al carrito
 function addProduct(id) {
-    const product = products[id];
-    if (product) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existing = cart.find(item => item.id === product.id);
+  const product = products.find(p => p.id === id);
+  if (product) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existing = cart.find(item => item.id === product.id);
 
-        if (existing) {
-            existing.quantity += 1;
-        } else {
-            cart.push({ ...product, quantity: 1 });
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${product.name} agregado al carrito`);
+    if (existing) {
+      existing.quantity += 1;
     } else {
-        console.error("Producto no encontrado");
+      cart.push({ ...product, quantity: 1 });
     }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("cartTimestamp", new Date().getTime());
+    alert(`${product.name} agregado al carrito`);
+  } else {
+    console.error("Producto no encontrado");
+  }
 }
 
 
-// Ver producto
-function viewProduct(id) {
-    localStorage.setItem("selectedProduct", id);
-    window.location.href = "product.html";
+
+
+// Abre el modal con la info del producto
+function openModal(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  document.getElementById("modal-img").src = product.img;
+  document.getElementById("modal-title").textContent = product.name;
+  document.getElementById("modal-quantity").value = 1;
+
+  window.selectedProduct = product;
+
+  const modal = document.getElementById("product-modal");
+  modal.showModal();
+  
+  // Add event listeners for modal interactions
+  setupModalEventListeners();
 }
 
-
-
-
-
-
-
-
-// Mostrar detalle
-if (window.location.pathname.includes("product.html")) {
-    const id = localStorage.getItem("selectedProduct");
-    const prod = products[id];
-    if (prod) {
-        document.getElementById("product-detail").innerHTML = `
-      <h2>${prod.name}</h2>
-      <img src="${prod.img}" width="200" />
-      <p>Precio: $${prod.price}</p>
-      <button onclick="addToCart('${id}')">Agregar al carrito</button>
-    `;
-    }
-}
-
-
-// Mostrar carrito
-if (window.location.pathname.includes("cart.html")) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const container = document.getElementById("cart-items");
-    let total = 0;
-    cart.forEach(item => {
-        container.innerHTML += `<p>${item.name} - $${item.price}</p>`;
-        total += item.price;
+// Configura los event listeners del modal
+function setupModalEventListeners() {
+    const modal = document.getElementById("product-modal");
+    const closeBtn = document.getElementById("close-modal-btn");
+    const addToCartBtn = document.getElementById("add-to-cart-modal-btn");
+    
+    // Remove existing listeners to prevent duplicates
+    const newCloseBtn = closeBtn.cloneNode(true);
+    closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+    
+    const newAddToCartBtn = addToCartBtn.cloneNode(true);
+    addToCartBtn.parentNode.replaceChild(newAddToCartBtn, addToCartBtn);
+    
+    // Add close button listener
+    newCloseBtn.addEventListener('click', closeModal);
+    
+    // Add "Agregar al carrito" button listener
+    newAddToCartBtn.addEventListener('click', goToNextStep);
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
     });
-    document.getElementById("total").innerText = total;
 }
 
 
+// Cierra el modal
+function closeModal() {
+    const modal = document.getElementById("product-modal");
+    modal.close();
+    
+    // Clean up - remove click outside listener
+    modal.removeEventListener('click', closeModal);
+}
+
+// Ir a la siguiente página y guardar info temporal
+function goToNextStep() {
+    const quantity = parseInt(document.getElementById("modal-quantity").value);
+
+    if (quantity < 1) {
+        alert("Cantidad inválida");
+        return;
+    }
+
+    const product = window.selectedProduct;
+
+    // Guardar temporalmente en localStorage para usar en la siguiente página
+    const tempSelection = {
+        id: product.id,
+        name: product.name,
+        img: product.img,
+        price: product.price,  // Agregar el precio
+        talla: product.talla,  // Agregar la talla
+        stock: product.stock,  // Agregar el stock
+        quantity: quantity
+    };
+
+    localStorage.setItem("selectedProduct", JSON.stringify(tempSelection));
+
+    // Redirigir a la página que tú indiques
+    window.location.href = "/Front/estampas.html";  // <-- cámbialo por tu ruta
+}
