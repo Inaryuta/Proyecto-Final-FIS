@@ -13,8 +13,6 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Datos de los productos
-// nombre, precio, imagen, talla, stock
 
 
 // Datos de los productos
