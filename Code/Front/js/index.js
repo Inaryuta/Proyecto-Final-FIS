@@ -48,6 +48,11 @@ const products = [
     { id: 6, name: "Camisa Gris", price: 110000, img: "images/camisas/camisaGris.png", talla: "S", stock: 4 }
 ];
 
+
+
+
+
+
 // Función principal para ejecutar al cargar el DOM
 function main() {
     try {
@@ -105,14 +110,21 @@ function addProduct(id) {
     const product = products[id];
     if (product) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        cart.push(product);
+        const existing = cart.find(item => item.id === product.id);
+
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+
         localStorage.setItem("cart", JSON.stringify(cart));
         alert(`${product.name} agregado al carrito`);
     } else {
-        console.log(id);
         console.error("Producto no encontrado");
     }
 }
+
 
 // Ver producto
 function viewProduct(id) {
