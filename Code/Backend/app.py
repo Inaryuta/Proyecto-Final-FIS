@@ -19,6 +19,7 @@ def register():
     result = user_service.register_user(nombre, correo, contrasena, rol_id)
     return jsonify(result)
 
+# === USER ===
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -31,14 +32,30 @@ def login():
     result = user_service.login_user(correo, contrasena)
     return jsonify(result)
 
+# === CARRITO ===
+@app.route("/carrito/guardar", methods=["POST"])
+def guardar_carrito():
+    data = request.get_json()
+    usuario_id = data.get("usuario_id")
+    items = data.get("items")
+
+    if not usuario_id or not isinstance(items, list):
+        return jsonify({"message": "Faltan datos (usuario_id o items)", "success": False}), 400
+
+    result = carrito_service.guardar_carrito_completo(usuario_id, items)
+    return jsonify(result), 201
+
 @app.route("/carrito", methods=["POST"])
 def crear_carrito():
     data = request.get_json()
     usuario_id = data.get("usuario_id")
+    print("usuario_id recibido:", usuario_id)
+
     if not usuario_id:
         return jsonify({"message": "Falta usuario_id", "success": False})
     return jsonify(carrito_service.crear_carrito_si_no_existe(usuario_id))
 
+# === PEDIDOS ===
 @app.route("/pedido", methods=["POST"])
 def crear_pedido():
     data = request.get_json()

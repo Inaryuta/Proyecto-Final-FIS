@@ -12,11 +12,7 @@ window.addEventListener('click', (e) => {
     }
 });
 
-
-
-
 //Verificar si el usuario está logeado
-// y mostrar su nombre en el perfil
 const user = JSON.parse(sessionStorage.getItem("user"));
 const profile = document.getElementById('perfil');
 
@@ -35,13 +31,38 @@ if (user) {
         profile.innerText = "Invitado";  // O déjalo vacío si prefieres
     }
 
-    // window.location.href = "/Front/login.html";
+    window.location.href = "../Front/login.html";
 }
 
+function crearCarritoSimple() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
+  if (!user || !user.id) {
+    alert("Debes iniciar sesión para crear el carrito.");
+    return;
+  }
 
-
-
+  fetch("http://127.0.0.1:5000/carrito", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ usuario_id: user.id })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Carrito creado correctamente.");
+        // Puedes redirigir o mostrar algo aquí si quieres
+      } else {
+        alert("Error: " + data.message);
+      }
+    })
+    .catch(error => {
+      console.error("Error al crear el carrito:", error);
+      alert("No se pudo conectar con el servidor.");
+    });
+}
 
 // Mostrar carrito de compras al cargar
 document.addEventListener('DOMContentLoaded', () => {

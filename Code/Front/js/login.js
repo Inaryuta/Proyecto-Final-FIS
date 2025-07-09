@@ -34,7 +34,7 @@ loginForm.addEventListener("submit", async function (event) {
             sessionStorage.setItem("user", JSON.stringify(data.user));
 
             localStorage.removeItem("cart");
-            window.location.href = "/Front/index.html";
+            window.location.href = "../Front/index.html";
 
 
         } else {

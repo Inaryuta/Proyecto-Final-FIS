@@ -1,5 +1,35 @@
 from CRUD import carrito as carrito_db
 from datetime import datetime
+from db import get_connection
+
+def crear_carrito_si_no_existe(usuario_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Verificar si ya hay un carrito para el usuario
+        cursor.execute("SELECT id FROM carrito WHERE usuario_id = %s", (usuario_id,))
+        existente = cursor.fetchone()
+
+        if existente:
+            print(f"Ya existe carrito para usuario {usuario_id} con id {existente[0]}")
+            return {"message": "El carrito ya existe", "success": True, "carrito_id": existente[0]}
+
+        # Insertar nuevo carrito
+        cursor.execute("INSERT INTO carrito (usuario_id) VALUES (%s)", (usuario_id,))
+        conn.commit()  # ¡IMPORTANTE!
+        nuevo_id = cursor.lastrowid
+
+        print(f"Carrito creado para usuario {usuario_id} con id {nuevo_id}")
+        return {"message": "Carrito creado correctamente", "success": True, "carrito_id": nuevo_id}
+
+    except Exception as e:
+        print("Error al crear carrito:", str(e))
+        return {"message": "Error al crear carrito", "success": False}
+
+    finally:
+        cursor.close()
+        conn.close()
 
 def crear_carrito_para_usuario(usuario_id):
     fecha = datetime.now()

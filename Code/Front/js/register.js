@@ -31,7 +31,7 @@ registerForm.addEventListener("submit", async function (event) {
             alert('Registro exitoso: ' + data.message);
 
             // Redirigir al usuario a la página de inicio de sesión o a otra página
-            window.location.href = "/Front/login.html"; 
+            window.location.href = "../Front/login.html"; 
         } else {
             const errorData = await response.json();
             alert('Error: ' + errorData.message);
