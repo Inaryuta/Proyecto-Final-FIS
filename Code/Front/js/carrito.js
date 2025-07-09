@@ -52,10 +52,14 @@ function crearCarritoSimple() {
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        alert("Carrito creado correctamente.");
-        // Puedes redirigir o mostrar algo aquí si quieres
+        if (data.message === "Ya tiene un carrito") {
+          alert("Ya tienes un carrito activo. Puedes continuar con tu compra.");
+        } else {
+          alert("Carrito creado correctamente.");
+        }
+        console.log("Carrito recibido:", data.carrito);
       } else {
-        alert("Error: " + data.message);
+        alert("Error al crear el carrito: " + data.message);
       }
     })
     .catch(error => {
@@ -152,4 +156,5 @@ function deleteCart() {
         renderCart();
     }
 }
+
 
